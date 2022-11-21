@@ -1,20 +1,33 @@
 import { useState } from 'react';
 import axios from 'axios';
 import _ from 'lodash';
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
+import InputField from './InputField';
 
-function LoginForm({ onLogin }) {
+function LoginForm({ onLogin, showError }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+
+  const emailError = !email ? 'Email is required.' : !email.includes('@') ? 'Email must include an @ sign.' : '';
+
+  const passwordError = !password
+    ? 'Password is required.'
+    : password.length < 8
+    ? 'Password must be at least 8 characters.'
+    : '';
 
   function onClickSubmit(evt) {
     evt.preventDefault();
     setError('');
     setSuccess('');
 
-    console.log(email, password);
+    if (emailError || passwordError) {
+      setError('Please fix errors above.');
+      showError('Please fix errors above.')
+      return;
+    }
 
     axios(`${process.env.REACT_APP_API_URL}/api/user/login`, {
       method: 'post',
@@ -23,13 +36,12 @@ function LoginForm({ onLogin }) {
       .then((res) => {
         console.log(res);
         setSuccess(res.data.message);
-        const authPayload = jwt.decode(res.data.token)
+        const authPayload = jwt.decode(res.data.token);
         const auth = {
           email,
           userId: res.data.userId,
           token: res.data.token,
-          payload: authPayload
-
+          payload: authPayload,
         };
         console.log(auth);
         onLogin(auth);
@@ -40,6 +52,7 @@ function LoginForm({ onLogin }) {
         if (resError) {
           if (typeof resError === 'string') {
             setError(resError);
+            showError(resError);
           } else if (resError.details) {
             setError(_.map(resError.details, (x) => <div>{x.message}</div>));
           } else {
@@ -47,6 +60,7 @@ function LoginForm({ onLogin }) {
           }
         } else {
           setError(err.message);
+          showError(err.message);
         }
 
         // const errDetails = err?.response?.data?.error?.details;
@@ -75,34 +89,26 @@ function LoginForm({ onLogin }) {
     <div>
       <h1>Login</h1>
       <form>
-        <div className="mb-3">
-          <label className="form-label" htmlFor="LoginForm-email">
-            Email
-          </label>
-          <input
-            className="form-control"
-            id="LoginForm-email"
-            type="email"
-            placeholder="name@example.com"
-            autoComplete="email"
-            value={email}
-            onChange={(evt) => onInputChange(evt, setEmail)}
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label" htmlFor="LoginForm-password">
-            Password
-          </label>
-          <input
-            className="form-control"
-            id="LoginForm-password"
-            type="password"
-            placeholder=""
-            autoComplete="current-password"
-            value={password}
-            onChange={(evt) => onInputChange(evt, setPassword)}
-          />
-        </div>
+        <InputField
+          label="Email"
+          id="email"
+          autoComplete="email"
+          placeholder="name@example.com"
+          value={email}
+          onChange={(evt) => onInputChange(evt, setEmail)}
+          error={emailError}
+        />
+        <InputField
+          label="Password"
+          id="LoginForm-password"
+          type="password"
+          placeholder=""
+          autoComplete="current-password"
+          value={password}
+          onChange={(evt) => onInputChange(evt, setPassword)}
+          error={passwordError}
+        />
+        
         <div className="mb-3">
           <button className="btn btn-primary" type="submit" onClick={(evt) => onClickSubmit(evt)}>
             Login

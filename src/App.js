@@ -1,5 +1,6 @@
 import { useState } from 'react';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import LoginForm from './components/LoginForm';
@@ -16,21 +17,32 @@ function App() {
 
   function onLogin(auth) {
     setAuth(auth);
+    showSuccess('Logged In.');
     setScreen('/pet/list');
   }
 
   function onLogout() {
     setAuth(null);
     setScreen('/login');
+    showSuccess('Logged Out.');
+  }
+
+  function showError(message) {
+    toast(message, { type: 'error', position: 'bottom-right' });
+  }
+
+  function showSuccess(message) {
+    toast(message, { type: 'success', position: 'bottom-right' });
   }
 
   return (
     <div className="App min-vh-100 d-flex flex-column">
       <Navbar auth={auth} screen={screen} onNavigate={onNavigate} onLogout={onLogout}/>
-      <div className="bg-black text-white flex-grow-1">
+      <div className="flex-grow-1">
+        <ToastContainer />
         <main className="container my-5">
-          {screen === '/login' && <LoginForm onLogin={onLogin}/>}
-          {screen === '/pet/list' && <PetList />}
+          {screen === '/login' && <LoginForm onLogin={onLogin} showError={showError} />}
+          {screen === '/pet/list' && <PetList auth={auth} />}
         </main>
       </div>
       <Footer />
