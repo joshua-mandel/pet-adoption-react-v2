@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom';
+
 function Navbar({ auth, screen, onNavigate, onLogout }) {
   return (
     <header className="navbar navbar-expand navbar-dark bg-dark">
@@ -5,33 +7,16 @@ function Navbar({ auth, screen, onNavigate, onLogout }) {
         {auth && <span className="navbar-text">{auth.email}</span>}
         <ul className="navbar-nav">
           {!auth && (<li className="nav-item">
-            <a
-              className="nav-link"
-              href="/login"
-              onClick={(evt) => onNavigate(evt, '/login')}
-            >
-              Login
-            </a>
+            <NavLink className="nav-link" to="/login">Login</NavLink>
           </li>
           )}
           {auth && (<li className="nav-item">
-            <a
-              className="nav-link"
-              href="/login"
-              onClick={(evt) => onLogout()}
-            >
-              Logout
-            </a>
+          <NavLink className="nav-link" to="/login" onClick={(evt) => onLogout(evt)}>Logout</NavLink>
+      
           </li>
           )}
           <li className="nav-item">
-            <a
-              className="nav-link"
-              href="/pet/list"
-              onClick={(evt) => onNavigate(evt, '/pet/list')}
-            >
-              Pet List
-            </a>
+            <NavLink className="nav-link" to="/pet/list">Pet List</NavLink>
           </li>
         </ul>
       </nav>

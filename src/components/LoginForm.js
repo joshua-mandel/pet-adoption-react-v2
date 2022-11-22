@@ -2,6 +2,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import _ from 'lodash';
 import jwt from 'jsonwebtoken';
+
+import { Link } from 'react-router-dom';
 import InputField from './InputField';
 
 function LoginForm({ onLogin, showError }) {
@@ -25,7 +27,7 @@ function LoginForm({ onLogin, showError }) {
 
     if (emailError || passwordError) {
       setError('Please fix errors above.');
-      showError('Please fix errors above.')
+      showError('Please fix errors above.');
       return;
     }
 
@@ -108,12 +110,17 @@ function LoginForm({ onLogin, showError }) {
           onChange={(evt) => onInputChange(evt, setPassword)}
           error={passwordError}
         />
-        
-        <div className="mb-3">
-          <button className="btn btn-primary" type="submit" onClick={(evt) => onClickSubmit(evt)}>
+
+        <div className="mb-3 d-flex align-items-center">
+          <button className="btn btn-primary me-3" type="submit" onClick={(evt) => onClickSubmit(evt)}>
             Login
           </button>
+          <div>
+            <div>Don't have an account yet?</div>
+            <Link to="/register">Register Here</Link>
+          </div>
         </div>
+        
         {error && <div className="mb-3 text-danger">{error}</div>}
         {success && <div className="mb-3 text-success">{success}</div>}
       </form>
