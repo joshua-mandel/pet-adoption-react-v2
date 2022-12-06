@@ -64,22 +64,7 @@ function LoginForm({ onLogin, showError }) {
           setError(err.message);
           showError(err.message);
         }
-
-        // const errDetails = err?.response?.data?.error?.details;
-        // if (errDetails) {
-        //   setError(_.map(errDetails, (x) => <div>{x.message}</div>));
-        // }
       });
-
-    //   if (email === 'admin@example.com' && password === 'password') {
-    //     setSuccess('Valid Credentials');
-    //     const auth = {
-    //       email
-    //     };
-    //     onLogin(auth)
-    //   } else {
-    //     setError('Invalid Credentials');
-    //   }
   }
 
   function onInputChange(evt, setValue) {

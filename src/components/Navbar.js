@@ -6,17 +6,24 @@ function Navbar({ auth, screen, onNavigate, onLogout }) {
       <nav className="container-fluid">
         {auth && <span className="navbar-text">{auth.email}</span>}
         <ul className="navbar-nav">
-          {!auth && (<li className="nav-item">
-            <NavLink className="nav-link" to="/login">Login</NavLink>
-          </li>
+          {!auth && (
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/login">
+                Login
+              </NavLink>
+            </li>
           )}
-          {auth && (<li className="nav-item">
-          <NavLink className="nav-link" to="/login" onClick={(evt) => onLogout(evt)}>Logout</NavLink>
-      
-          </li>
+          {auth && (
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/login" onClick={(evt) => onLogout(evt)}>
+                Logout
+              </NavLink>
+            </li>
           )}
           <li className="nav-item">
-            <NavLink className="nav-link" to="/pet/list">Pet List</NavLink>
+            <NavLink className="nav-link" to="/pet/list">
+              Pet List
+            </NavLink>
           </li>
         </ul>
       </nav>
