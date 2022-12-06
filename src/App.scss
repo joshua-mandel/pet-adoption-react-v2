@@ -1,10 +1,52 @@
 // set variables up here, such as colors and fonts
+$palette1: #264653;
+$palette2: #2a9d8f;
+$palette3: #e9c46a;
+$palette4: #f4a261;
+$palette5: #e76f51;
+$palette6: #aafada;
+$palette7: #dedc87;
+
+$primary: $palette2;
+$secondary: $palette1;
+$font-family-base: 'Open Sans',
+sans-serif;
+$font-family-header: 'Oswald',
+sans-serif;
+
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./fonts/Oswald/Oswald-VariableFont_wght.ttf');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./fonts/OpenSans/OpenSans-VariableFont_wdth\,wght.ttf');
+}
 
 // import bootstrap stylesheet
-@import '~bootswatch/dist/Quartz/variables';
-@import "~bootstrap/scss/bootstrap";
-@import "~bootswatch/dist/Quartz/bootswatch";
+@import '~bootswatch/dist/Lux/variables';
+@import '~bootstrap/scss/bootstrap';
+@import '~bootswatch/dist/Lux/bootswatch';
 
 // add additional css rules here...
-
-
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.fs-1,
+.fs-2,
+.fs-3,
+.fs-4,
+.fs-5,
+.fs-6 {
+  font-family: $font-family-header;
+}
