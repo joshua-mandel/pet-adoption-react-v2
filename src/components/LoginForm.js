@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import _ from 'lodash';
 import jwt from 'jsonwebtoken';
+import { FaDoorOpen } from 'react-icons/fa';
 
 import { Link } from 'react-router-dom';
 import InputField from './InputField';
@@ -97,7 +98,8 @@ function LoginForm({ onLogin, showError }) {
         />
 
         <div className="mb-3 d-flex align-items-center">
-          <button className="btn btn-primary me-3" type="submit" onClick={(evt) => onClickSubmit(evt)}>
+          <button className="btn btn-primary me-3 d-flex align-items-center" type="submit" onClick={(evt) => onClickSubmit(evt)}>
+            <FaDoorOpen className='me-2' />
             Login
           </button>
           <div>

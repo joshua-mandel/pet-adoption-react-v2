@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { FaDoorOpen, FaList } from 'react-icons/fa';
 
 function Navbar({ auth, screen, onNavigate, onLogout }) {
   return (
@@ -8,20 +9,23 @@ function Navbar({ auth, screen, onNavigate, onLogout }) {
         <ul className="navbar-nav">
           {!auth && (
             <li className="nav-item">
-              <NavLink className="nav-link" to="/login">
+              <NavLink className="nav-link d-flex align-items-center" to="/login">
+                <FaDoorOpen className='me-2' />
                 Login
               </NavLink>
             </li>
           )}
           {auth && (
             <li className="nav-item">
-              <NavLink className="nav-link" to="/login" onClick={(evt) => onLogout(evt)}>
+              <NavLink className="nav-link d-flex align-items-center" to="/login" onClick={(evt) => onLogout(evt)}>
+              <FaDoorOpen className='me-2' />
                 Logout
               </NavLink>
             </li>
           )}
           <li className="nav-item">
-            <NavLink className="nav-link" to="/pet/list">
+            <NavLink className="nav-link d-flex align-items-center" to="/pet/list">
+              <FaList className='me-2' />
               Pet List
             </NavLink>
           </li>

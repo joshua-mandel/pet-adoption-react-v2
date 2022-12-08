@@ -50,3 +50,11 @@ h6,
 .fs-6 {
   font-family: $font-family-header;
 }
+
+.pet-list-title {
+  color: $palette5;
+  text-decoration: none;
+  &:hover {
+    color: $palette4;
+  }
+}

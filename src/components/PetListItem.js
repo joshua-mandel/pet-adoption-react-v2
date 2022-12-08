@@ -5,7 +5,7 @@ function PetListItem({ item }) {
     <div className="card border-dark mb-2">
       <div className="card-body">
         <h2 className="card-title">
-          <Link to={`/pet/${item._id}`}>{item.name}</Link>
+          <Link className='pet-list-title' to={`/pet/${item._id}`}>{item.name}</Link>
         </h2>
 
         <div className="card-text">
